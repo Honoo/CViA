@@ -3,12 +3,14 @@ import datetime
 import os
 import json
 
-RESUME_PATH = '/Users/yosriady/CViA/JobMatcher/resume.json'
-QUERY_PATH = '/Users/yosriady/CViA/JobMatcher/query.json'
+RESUME_PATH = 'resume.json'
+QUERY_PATH = 'query.json'
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Opens and parses JSON file to Python dictionary
 def load_json(filepath):
-    filepath = os.path.expanduser(filepath)
+#    filepath = os.path.expanduser(filepath)
     with open(filepath) as data_file:
         data = json.load(data_file)
     return data
