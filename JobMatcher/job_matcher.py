@@ -3,7 +3,7 @@ import datetime
 import os
 import json
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class JobMatcher(object):
     def __init__(self):
