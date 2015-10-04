@@ -3,9 +3,6 @@ import datetime
 import os
 import json
 
-RESUME_PATH = 'resume.json'
-QUERY_PATH = 'query.json'
-
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class JobMatcher(object):
@@ -71,6 +68,8 @@ class JobMatcher(object):
 
 # Usage
 if __name__ == '__main__':
+    RESUME_PATH = 'resume.json'
+    QUERY_PATH = 'query.json'
     resume = JobMatcher.load_json(RESUME_PATH)
     query = JobMatcher.load_json(QUERY_PATH)
     scores = JobMatcher.score(resume, query)
