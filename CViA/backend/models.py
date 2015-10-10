@@ -14,9 +14,15 @@ class Resume(models.Model):
 	experience = models.TextField(db_column="experience")
 	education = models.TextField(db_column="education")
 	awards = models.TextField(db_column="awards")
+	honors = models.TextField(db_column="honors")
 	languages = models.TextField(db_column="languages")
 	personal_references = models.TextField(db_column="personal_references")
 	interests = models.TextField(db_column="interests")
+	technology = models.TextField(db_column="technology")
+	certification = models.TextField(db_column="certification")
+	projects = models.TextField(db_column="projects")
+	summary = models.TextField(db_column="summary")
+	objective = models.TextField(db_column="objective")
 
 class JobDescription(models.Model):
 	class Meta:
