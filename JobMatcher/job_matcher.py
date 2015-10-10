@@ -6,6 +6,8 @@ import json
 # os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class JobMatcher(object):
+    AVAILABLE_ATTRIBUTES = ['education', 'experience', 'skills', 'languages']
+
     def __init__(self):
         return NotImplemented
 
@@ -19,24 +21,15 @@ class JobMatcher(object):
     # Returns individual and total scores
     @classmethod
     def score(cls, resume, query):
-        scores = {
-            'skills': cls.score_skills(resume['skills'].lower(), query['skills']),
-            'education': cls.score_education(resume['education'], query['education']),
-            'experience': cls.score_experience(resume['experience'], query['experience'])
-        }
+        scores = {}
+        scored_attributes = set(query.keys()).intersection(cls.AVAILABLE_ATTRIBUTES)
+        for attribute in scored_attributes:
+            scores[attribute] = getattr(cls, 'score_%s' % attribute)(resume[attribute], query[attribute])
         scores['total'] = sum(scores.values())
         return {
             'name': resume['name'],
             'score': scores
         }
-
-    @classmethod
-    def score_skills(cls, applicant_skills, skills):
-        score = 0
-        for skill in skills:
-            if skill.lower() in applicant_skills:
-                score += 1.0 / len(skills)
-        return score
 
     @classmethod
     def score_education(cls, applicant_education, educations):
@@ -68,6 +61,22 @@ class JobMatcher(object):
                 if int(g) > highest:
                     highest = int(g)
         return float(highest-lowest)/experience
+
+    @classmethod
+    def score_collection(cls, applicant_collection, collection):
+        if not applicant_collection:
+            return 0
+
+        score = 0
+        applicant_collection = applicant_collection.lower().split('\n')
+        for language in collection:
+            if language.lower() in applicant_collection:
+                score += 1.0 / len(collection)
+        return score
+
+    score_skills = score_collection
+    score_languages = score_collection
+
 
 # Usage
 if __name__ == '__main__':
