@@ -17,5 +17,5 @@ Curriculum Vitae Analyzer
 
 ## Django Setting
 * Add the following into your enviroment: DJANGO_SETTINGS_MODULE=CViA.settings
-* Windows: In the django folder (/CViA/) run 'set DJANGO_SETTINGS_MODULE=CViA.settings'
+* Windows: In the django folder (/CViA) run `set DJANGO_SETTINGS_MODULE=CViA.settings`
 
