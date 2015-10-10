@@ -10,3 +10,6 @@ Curriculum Vitae Analyzer
 * `git submodule init`
 * `git submodule update`
 * `./setup`
+
+## Database
+* http://dev.mysql.com/downloads/connector/python/
