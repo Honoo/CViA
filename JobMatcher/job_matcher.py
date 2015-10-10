@@ -25,7 +25,10 @@ class JobMatcher(object):
             'experience': cls.score_experience(resume['experience'], query['experience'])
         }
         scores['total'] = sum(scores.values())
-        return scores
+        return {
+            'name': resume['name'],
+            'score': scores
+        }
 
     @classmethod
     def score_skills(cls, applicant_skills, skills):
