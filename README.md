@@ -13,3 +13,7 @@ Curriculum Vitae Analyzer
 
 ## Database
 * http://dev.mysql.com/downloads/connector/python/
+
+## Django Setting
+Add the following into your enviroment 
+export DJANGO_SETTINGS_MODULE=CViA.settings
