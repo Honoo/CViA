@@ -7,9 +7,9 @@ class Resume(models.Model):
 		managed = False # directly references the SQL
 		db_table = "resume"
 	pid = models.PositiveIntegerField(primary_key=True, db_column="id")
-	name = models.CharField(db_column="name")
-	email = models.CharField(db_column="email")
-	phone = models.CharField(db_column="phone")
+	name = models.CharField(max_length=255,db_column="name")
+	email = models.CharField(max_length=255,db_column="email")
+	phone = models.CharField(max_length=255,db_column="phone")
 	skills = models.TextField(db_column="skills")
 	experience = models.TextField(db_column="experience")
 	education = models.TextField(db_column="education")
