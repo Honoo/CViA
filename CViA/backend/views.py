@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
+from .models import Resume
 import os
 
 def index(request):
@@ -19,9 +20,11 @@ def upload_file(request):
     return render_to_response('upload_cv.html', {'form': form})
 
 def handle_uploaded_file(ufile):
-    with open("{0}/resume/{1}".format(os.path.dirname(os.path.abspath(__file__)), ufile), "wb+") as target:
-        for chunk in ufile.chunks():
+    filename = "{0}/resume/{1}".format(os.path.dirname(os.path.abspath(__file__)), ufile)
+    with open(filename, "wb+") as target:
+        for chunk in f.chunks():
             target.write(chunk)
+    Resume.create_from_pdf(filename)
 
 def upload_successful(request):
     return render_to_response("file_uploaded.html")

@@ -1,8 +1,9 @@
 from django.db import models
-# Create your models here.
+
+from .resume_manager import ResumeManager
+
 
 class Resume(models.Model):
-	# pid = models.PositiveIntegerField(primary_key=True, )
 	name = models.CharField(max_length=255)
 	email = models.CharField(max_length=255)
 	phone = models.CharField(max_length=255)
@@ -20,18 +21,4 @@ class Resume(models.Model):
 	summary = models.TextField()
 	objective = models.TextField()
 
-class JobDescription(models.Model):
-	job_title = models.TextField()
-	description = models.TextField()
-	skills = models.TextField()
-	experience = models.TextField()
-	education = models.TextField()
-	languages = models.TextField()
-	location = models.TextField()
-
-class Weightage(models.Model):
-	job_description = models.ForeignKey(JobDescription)
-	skills_weightage = models.FloatField()
-	education_weightage = models.FloatField()
-	languages_weightage = models.FloatField()
-	experience_weightage = models.FloatField()
+	objects = ResumeManager()
