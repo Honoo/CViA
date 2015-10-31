@@ -22,9 +22,9 @@ def upload_file(request):
 def handle_uploaded_file(ufile):
     filename = "{0}/resume/{1}".format(os.path.dirname(os.path.abspath(__file__)), ufile)
     with open(filename, "wb+") as target:
-        for chunk in f.chunks():
+        for chunk in ufile.chunks():
             target.write(chunk)
-    Resume.create_from_pdf(filename)
+    Resume.objects.create_from_pdf(filename)
 
 def upload_successful(request):
     return render_to_response("file_uploaded.html")
