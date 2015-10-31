@@ -2,48 +2,36 @@ from django.db import models
 # Create your models here.
 
 class Resume(models.Model):
-	class Meta:
-		managed = False # directly references the SQL
-		db_table = "resume"
-	pid = models.PositiveIntegerField(primary_key=True, db_column="id")
-	name = models.CharField(max_length=255,db_column="name")
-	email = models.CharField(max_length=255,db_column="email")
-	phone = models.CharField(max_length=255,db_column="phone")
-	skills = models.TextField(db_column="skills")
-	experience = models.TextField(db_column="experience")
-	education = models.TextField(db_column="education")
-	awards = models.TextField(db_column="awards")
-	honors = models.TextField(db_column="honors")
-	languages = models.TextField(db_column="languages")
-	personal_references = models.TextField(db_column="personal_references")
-	interests = models.TextField(db_column="interests")
-	technology = models.TextField(db_column="technology")
-	certification = models.TextField(db_column="certification")
-	projects = models.TextField(db_column="projects")
-	summary = models.TextField(db_column="summary")
-	objective = models.TextField(db_column="objective")
+	# pid = models.PositiveIntegerField(primary_key=True, )
+	name = models.CharField(max_length=255)
+	email = models.CharField(max_length=255)
+	phone = models.CharField(max_length=255)
+	skills = models.TextField()
+	experience = models.TextField()
+	education = models.TextField()
+	awards = models.TextField()
+	honors = models.TextField()
+	languages = models.TextField()
+	personal_references = models.TextField()
+	interests = models.TextField()
+	technology = models.TextField()
+	certification = models.TextField()
+	projects = models.TextField()
+	summary = models.TextField()
+	objective = models.TextField()
 
 class JobDescription(models.Model):
-	class Meta:
-		managed = False
-		db_table = "job_description"
-	pid = models.PositiveIntegerField(primary_key=True, db_column="id")
-	job_title = models.TextField(db_column="job_title")
-	description = models.TextField(db_column="description")
-	skills = models.TextField(db_column="skills")
-	experience = models.TextField(db_column="experience")
-	education = models.TextField(db_column="education")
-	languages = models.TextField(db_column="languages")
-	location = models.TextField(db_column="location")
+	job_title = models.TextField()
+	description = models.TextField()
+	skills = models.TextField()
+	experience = models.TextField()
+	education = models.TextField()
+	languages = models.TextField()
+	location = models.TextField()
 
 class Weightage(models.Model):
-	class Meta:
-		managed = False
-		db_table = "weightage"
-	pid = models.PositiveIntegerField(primary_key=True, db_column="id")
-	job_description_id = models.PositiveIntegerField(db_column="job_description_id")
-	skills_weightage = models.FloatField(db_column="skills_weightage")
-	education_weightage = models.FloatField(db_column="education_weightage")
-	languages_weightage = models.FloatField(db_column="languages_weightage")
-	experience_weightage = models.FloatField(db_column="experience_weightage")
-
+	job_description = models.ForeignKey(JobDescription)
+	skills_weightage = models.FloatField()
+	education_weightage = models.FloatField()
+	languages_weightage = models.FloatField()
+	experience_weightage = models.FloatField()
