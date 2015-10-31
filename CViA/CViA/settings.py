@@ -56,7 +56,7 @@ ROOT_URLCONF = 'CViA.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/static/html'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
