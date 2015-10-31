@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +8,13 @@
 	<title>Upload CV</title>
 	
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="../libs/bootstrap-3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../libs/bootstrap-3.3.5/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap-3.3.5/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap-3.3.5/css/bootstrap-theme.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	
 	<!-- JS -->
-	<script src="../libs/jquery-1.11.3.min.js"></script>
-	<script src="../libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+	<script src="{% static 'libs/jquery-1.11.3.min.js' %}"></script>
+	<script src="{% static 'libs/bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
 </head>
 <body>
     <!-- Fixed navbar -->
@@ -32,11 +33,10 @@
 
 	<div class="container">
 		<div class="row">
-			<form action="/upload-cv" method="post" enctype="multipart/form-data">
+			<form action="./" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                Select CV to upload:<br>
                 {{ form }}
-				Select CV to upload:
-				<input type="file" name="cvToUpload" id="cvToUpload">
 				<input type="submit" value="Upload CV" name="submit">
 			</form>
 		</div>
