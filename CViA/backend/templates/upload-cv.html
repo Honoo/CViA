@@ -33,6 +33,8 @@
 	<div class="container">
 		<div class="row">
 			<form action="/upload-cv" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
 				Select CV to upload:
 				<input type="file" name="cvToUpload" id="cvToUpload">
 				<input type="submit" value="Upload CV" name="submit">
