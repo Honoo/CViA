@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 class Resume(models.Model):
@@ -47,3 +46,4 @@ class Weightage(models.Model):
 	education_weightage = models.FloatField(db_column="education_weightage")
 	languages_weightage = models.FloatField(db_column="languages_weightage")
 	experience_weightage = models.FloatField(db_column="experience_weightage")
+
