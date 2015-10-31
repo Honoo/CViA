@@ -2,6 +2,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from .forms import UploadFileForm
 
+def index(request):
+    return HttpResponse("Hello World")
+
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
