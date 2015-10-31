@@ -11,11 +11,10 @@ def upload_file(request):
             return HttpResponseRedirect('fileuploaded.html')
     else:
         form = UploadFileForm()
-    return render_to_response('upload.html', {'form': form})
+    return render_to_response('upload_cv.html', {'form': form})
 
 def handle_uploaded_file(ufile, title):
     with open("resume/{0}".format(title), "wb+") as target:
         for chunk in f.chunks():
             target.write(chunk)
-
 
