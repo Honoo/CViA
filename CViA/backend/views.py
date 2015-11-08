@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .forms import UploadFileForm
+from .forms import JobDescriptionForm
 from .models import Resume
 from .models import JobDescription
 
@@ -32,8 +33,9 @@ def handle_uploaded_file(ufile):
 def upload_successful(request):
     return render_to_response("file_uploaded.html")
 
+@csrf_exempt
 def input_job_description(request):
-    if request.method == 'POST'
+    if request.method == 'POST':
         form = JobDescriptionForm(request.POST)
         if form.is_valid():
             handle_job_description(form)
@@ -55,7 +57,7 @@ def handle_job_description(form):
         skills_weightage = data['skills_weightage'],
         experience_weightage = data['experience_weightage'],
         education_weightage = data['education_weightage'],
-        language_weightage = data['language_weightage']
+        languages_weightage = data['languages_weightage']
         )
     job_desc.save()
 
