@@ -9,3 +9,8 @@ class JobDescription(models.Model):
 	education = models.TextField()
 	languages = models.TextField()
 	location = models.TextField()
+
+	skills_weightage = models.FloatField(default=0)
+	education_weightage = models.FloatField(default=0)
+	languages_weightage = models.FloatField(default=0)
+	experience_weightage = models.FloatField(default=0)
