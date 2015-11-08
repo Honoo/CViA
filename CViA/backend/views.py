@@ -184,3 +184,29 @@ def update_cv(form, pk):
             summary = data['summary'],
             objective = data['objective'],
         )
+
+@csrf_exempt
+def delete_cv(request):
+    resp=[]
+    try:
+        cv = Resume.objects.get(pk=request.POST['pk'])
+        cv.delete()
+    except Exception:
+        logger.info(traceback.format_exc())
+        resp.append({'status' : 400})
+    else:
+        resp.append({'status' : 200})
+    return HttpResponse(json.dumps(resp), content_type='application/json')
+
+@csrf_exempt
+def delete_job(request):
+    resp=[]
+    try:
+        job_desc = JobDescription.objects.get(pk=request.POST['pk'])
+        job_desc.delete()
+    except Exception:
+        logger.info(traceback.format_exc())
+        resp.append({'status' : 400})
+    else:
+        resp.append({'status' : 200})
+    return HttpResponse(json.dumps(resp), content_type='application/json') 
