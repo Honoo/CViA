@@ -13,7 +13,7 @@ $(document).ready( function () {
 function renderTable(target, job_id) {
     $(target).DataTable({
         'ajax': { 
-            'url': '../get_matching_cvs/'+job_id+'/',
+            'url': '../../get_matching_cvs/'+job_id+'/',
             'dataSrc': processData,
             'order': [[ 0, "desc" ]] // Order by the first column (score)
         },
