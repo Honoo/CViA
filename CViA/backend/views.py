@@ -75,3 +75,8 @@ def job_list(request):
 def job_match(request):
     context = {} 
     return render(request, 'job_matcher.html', context)
+
+def get_cvs(request):
+    cvs = Resume.objects.all()
+    data = serializers.serialize("json", cvs)
+    return HttpResponse(data, content_type='application/json')
