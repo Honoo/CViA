@@ -6,7 +6,7 @@ $(document).ready( function () {
 function renderTable(target) {
     $(target).DataTable({
         'ajax': { 
-            'url': '../get_job_descriptions',
+            'url': '../get_cvs',
             'dataSrc': processData
         },
         'deferRender': true,
