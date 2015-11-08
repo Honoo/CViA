@@ -1,22 +1,30 @@
 $(document).ready( function () {
-    renderTable("#cv_list"); 
+    var url = window.location.href;
+    var job_id = url.split("/");
+    if(job_id[job_id.length-1].length > 0){
+        job_id = job_id[job_id.length-1].toString();
+    }
+    else {
+        job_id = job_id[job_id.length-2].toString();
+    }
+    renderTable("#cv_list", job_id); 
 });
 
-function renderTable(target) {
+function renderTable(target, job_id) {
     $(target).DataTable({
         'ajax': { 
-            'url': '../get_cvs',
+            'url': '../get_matching_cvs/'+job_id+'/',
             'dataSrc': processData,
             'order': [[ 0, "desc" ]] // Order by the first column (score)
         },
         'deferRender': true,
         'columns': [
-            {'data': 'fields.score', 'title': 'Total Score'},
-            {'data': 'fields.name', 'title': 'Name'},
-            {'data': 'fields.education', 'title': 'Education'},
-            {'data': 'fields.skills', 'title': 'Skills'},
-            {'data': 'fields.experience', 'title': 'Experience'},
-            {'data': 'fields.languages', 'title': 'Languages'},
+            {'data': 'fields.score.total', 'title': 'Total Score'},
+            {'data': 'fields.resume.name', 'title': 'Name'},
+            {'data': 'fields.resume.education', 'title': 'Education'},
+            {'data': 'fields.resume.skills', 'title': 'Skills'},
+            {'data': 'fields.resume.experience', 'title': 'Experience'},
+            {'data': 'fields.resume.languages', 'title': 'Languages'},
         ]
     });
 }

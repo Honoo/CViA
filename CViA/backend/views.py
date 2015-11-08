@@ -121,9 +121,8 @@ def update_job_description(form, pk):
 def job_list(request):
     return render_to_response("description_list.html", context_instance=RequestContext(request))
 
-def job_match(request):
-    context = {} 
-    return render(request, 'job_matcher.html', context)
+def job_match(request, pk):
+    return render_to_response('job_matcher.html')
 
 def get_cvs(request):
     cvs = Resume.objects.all()

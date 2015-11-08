@@ -34,7 +34,7 @@ function processData(json){
     for(var i=0; i < len; i++){ 
         json[i].DT_RowId = json[i].pk;
         json[i].fields.edit = '<a href="'+json[i].pk+'/edit"><input type="button" value="Edit"></a>';
-        json[i].fields.match_cv = '<input type="button" value="Match CVs">';
+        json[i].fields.match_cv = '<a href="../job_match/'+json[i].pk+'"><input type="button" value="Match CVs"></a>';
         json[i].fields.weights_string = 
             json[i].fields.skills_weightage + ":" + 
             json[i].fields.experience_weightage + ":" + 
