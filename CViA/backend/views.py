@@ -1,5 +1,7 @@
 import os
 import json
+from django.template import RequestContext
+from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -18,7 +20,8 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('../upload_successful')
+            messages.add_message(request, messages.SUCCESS, 'CV successfully uploaded.')
+            return HttpResponseRedirect('../job_list')
     else:
         form = UploadFileForm()
     return render_to_response('upload_cv.html', {'form': form})
@@ -90,7 +93,7 @@ def edit_job_description(request, pk):
     return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
 
 def job_list(request):
-    return render_to_response("description_list.html")
+    return render_to_response("description_list.html", context_instance=RequestContext(request))
 
 def job_match(request):
     context = {} 
