@@ -18,8 +18,7 @@ class JobMatcher(object):
         scores = cls.weight(scores)
         scores['total'] = sum(scores.values())
         return {
-            'name': resume['name'],
-            'id': resume['id'],
+            'resume': resume,
             'score': scores
         }
 
