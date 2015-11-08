@@ -6,10 +6,8 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from .forms import UploadFileForm
-from .forms import JobDescriptionForm
-from .models import Resume
-from .models import JobDescription
+from .forms import UploadFileForm, JobDescriptionForm
+from .models import Resume, JobDescription
 
 def index(request):
     return HttpResponse("Hello World")
