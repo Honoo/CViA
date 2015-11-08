@@ -33,7 +33,7 @@ function processData(json){
     var len = json.length;
     for(var i=0; i < len; i++){ 
         json[i].DT_RowId = json[i].pk;
-        json[i].fields.edit = '<input type="button" value="Edit">';
+        json[i].fields.edit = '<a href="'+json[i].pk+'/edit"><input type="button" value="Edit"></a>';
         json[i].fields.match_cv = '<input type="button" value="Match CVs">';
     }
     return json;

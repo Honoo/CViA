@@ -69,6 +69,10 @@ def get_job_descriptions(request):
     data = serializers.serialize("json", job_desc)
     return HttpResponse(data, content_type='application/json')
 
+def edit_job_description(request, pk):
+    job_desc = get_object_or_404(Question, pk=pk)
+    return render(request, "edit_job_description.html", {"job": job_desc})
+
 def job_list(request):
     return render_to_response("description_list.html")
 
