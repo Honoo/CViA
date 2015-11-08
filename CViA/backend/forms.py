@@ -78,49 +78,24 @@ class CVForm(forms.Form):
         helper.attrs = {'enctype': 'multipart/form-data'}
         helper.label_class = 'col-lg-2'
         helper.field_class = 'col-lg-10'
-        helper.layout = Layout(
-            "job_title",
-            "description",
-            "location",
-            Div(
-                Div("skills", css_class="col-lg-8"),
-                Div("skills_weightage", css_class="col-lg-4"),
-                css_class="row",
-            ),
-            Div(
-                Div("experience", css_class="col-lg-8"),
-                Div("experience_weightage", css_class="col-lg-4"),
-                css_class="row",
-            ),
-            Div(
-                Div("education", css_class="col-lg-8"),
-                Div("education_weightage", css_class="col-lg-4"),
-                css_class="row",
-            ),
-            Div(
-                Div("languages", css_class="col-lg-8"),
-                Div("languages_weightage", css_class="col-lg-4"),
-                css_class="row",
-            ),
-        )
         helper.add_input(Submit('submit', 'Submit'))
 
         self.helper = helper
-        super(JobDescriptionForm, self).__init__(*args, **kwargs)
+        super(CVForm, self).__init__(*args, **kwargs)
 
     name = forms.CharField(label='Name')
     email = forms.CharField(label='Email')
-    phone = forms.CharField(label='Phone')
-    skills = forms.CharField(label='Skills')
-    experience = forms.CharField(label='Experience', widget=forms.Textarea)
-    education = forms.CharField(label='Education')
-    awards = forms.CharField(label='Awards')
-    honors = forms.CharField(label='Honors')
-    languages = form.CharField(label='languages')
-    personal_references = form.CharField(label='Personal References', widget=forms.Textarea)
-    interests = form.CharField(label='Interest')
-    technology = form.CharField(label='Technology')
-    certification = form.CharField(label='Certification')
-    projects = form.CharField(label='Projects', widget=forms.Textarea)
-    summary = form.CharField(label='Summary', widget=forms.Textarea)
-    objective = form.CharField(label='Objective', widget=forms.Textarea)
+    phone = forms.CharField(label='Phone', required=False)
+    skills = forms.CharField(label='Skills', required=False)
+    experience = forms.CharField(label='Experience', widget=forms.Textarea, required=False)
+    education = forms.CharField(label='Education', required=False)
+    awards = forms.CharField(label='Awards', required=False)
+    honors = forms.CharField(label='Honors', required=False)
+    languages = forms.CharField(label='languages', required=False)
+    personal_references = forms.CharField(label='Personal References', widget=forms.Textarea, required=False)
+    interests = forms.CharField(label='Interests', required=False)
+    technology = forms.CharField(label='Technology', required=False)
+    certification = forms.CharField(label='Certification', required=False)
+    projects = forms.CharField(label='Projects', widget=forms.Textarea, required=False)
+    summary = forms.CharField(label='Summary', widget=forms.Textarea, required=False)
+    objective = forms.CharField(label='Objective', widget=forms.Textarea, required=False)
