@@ -71,8 +71,13 @@ def get_job_descriptions(request):
     return HttpResponse(data, content_type='application/json')
 
 def edit_job_description(request, pk):
-    job_desc = get_object_or_404(Question, pk=pk)
+    job_desc = get_object_or_404(JobDescription, pk=pk)
     if request.method == 'POST':
+        form = JobDescriptionForm(request.POST)
+        if form.is_valid():
+            update_job_description(form, pk)
+            return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
+    
     else :    
         form = JobDescriptionForm(initial={
                                     'job_title': job_desc['job_title'],
@@ -88,6 +93,22 @@ def edit_job_description(request, pk):
                                     'languages_weightage': job_desc['languages_weightage']
                                     })
     return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
+
+def update_job_description(form, pk):
+    data = form.cleaned_data
+    job_desc = JobDescription.objects.filter(pk=pk).update(
+        job_title=data['job_title'], 
+        description = data['description'],
+        skills = data['skills'],
+        experience = data['experience'],
+        education = data['education'],
+        languages = data['languages'],
+        location = data['location'],
+        skills_weightage = data['skills_weightage'],
+        experience_weightage = data['experience_weightage'],
+        education_weightage = data['education_weightage'],
+        languages_weightage = data['languages_weightage']
+        )
 
 def job_list(request):
     return render_to_response("description_list.html")
