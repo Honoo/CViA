@@ -9,7 +9,7 @@ class JobDescriptionForm(forms.Form):
     location = forms.CharField(label='Location')
     skills = forms.CharField(label='Skills')
     skills_weightage = forms.FloatField()
-    experience = forms.CharField(label='Experience')
+    experience = forms.CharField(label='Years of Experience')
     experience_weightage = forms.FloatField()
     education = forms.CharField(label='Education')
     education_weightage = forms.FloatField()
