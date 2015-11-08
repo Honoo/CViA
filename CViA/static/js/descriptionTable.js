@@ -14,13 +14,13 @@ function renderTable(target) {
             {'data': 'fields.description', 'title': 'Description'},
             {'data': 'fields.location', 'title': 'Location'},
             {'data': 'fields.skills', 'title': 'Skills'},
-            {'data': 'fields.skills_weightage', 'title': 'Skills Weightage'},
+            {'data': 'fields.skils_weightage', 'title': 'Skills Weightage'},
             {'data': 'fields.experience', 'title': 'Experience'},
             {'data': 'fields.experience_weightage', 'title': 'Experience Weightage'},
             {'data': 'fields.education', 'title': 'Education'},
             {'data': 'fields.education_weightage', 'title': 'Education Weightage'},
-            {'data': 'fields.languages', 'title': 'Languages'},
-            {'data': 'fields.languages_weightage', 'title': 'Languages Weightage'},
+            {'data': 'fields.langauges', 'title': 'Languages'},
+            {'data': 'fields.langauges_weightage', 'title': 'Languages Weightage'},
             {'data': 'fields.edit', 'title': 'Edit Description'},
             {'data': 'fields.match_cv', 'title': 'Match CVs'}
         ]
