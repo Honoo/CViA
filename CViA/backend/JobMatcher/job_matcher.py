@@ -1,76 +1,39 @@
-import re
-import datetime
-import os
-import json
-
-# os.chdir(os.path.dirname(os.path.abspath(__file__)))
+from sources.json_data_source import JSONDataSource
+from filters.education_filter import EducationFilter
+from filters.experience_filter import ExperienceFilter
+from filters.skills_filter import SkillsFilter
+from filters.languages_filter import LanguagesFilter
 
 class JobMatcher(object):
-    def __init__(self):
-        return NotImplemented
-
-    # Opens and parses JSON file to Python dictionary
-    @classmethod
-    def load_json(cls, filepath):
-        with open(filepath) as data_file:
-            data = json.load(data_file)
-        return data
+    def __init__(self, query_path, weights = {}):
+        self.query = JSONDataSource.load(query_path)
+        self.weights = weights
 
     # Returns individual and total scores
-    @classmethod
-    def score(cls, resume, query):
-        scores = {
-            'skills': cls.score_skills(resume['skills'].lower(), query['skills']),
-            'education': cls.score_education(resume['education'], query['education']),
-            'experience': cls.score_experience(resume['experience'], query['experience'])
-        }
+    def score(cls, resume):
+        scores = {}
+        for filter in cls.steps():
+            attribute = filter.__name__.replace("Filter", "").lower()
+            scores[attribute] = filter.run(resume[attribute].lower(), cls.query[attribute])
+        scores = cls.weight(scores)
         scores['total'] = sum(scores.values())
-        return scores
-
-    @classmethod
-    def score_skills(cls, applicant_skills, skills):
-        score = 0
-        for skill in skills:
-            if skill.lower() in applicant_skills:
-                score += 1.0 / len(skills)
-        return score
-
-    @classmethod
-    def score_education(cls, applicant_education, educations):
-        applicant_education = applicant_education.lower()
-        educations = map(lambda e: e.lower(), educations)
-
-        corpus = {
-            'bachelors': ['bachelor', 'bsc', 'bs'],
-            'masters': ['master', 'msc', 'ms'],
-            'phd': ['postdoc', 'phd']
+        return {
+            'name': resume['name'],
+            'score': scores
         }
-        score = 0
-        for education in educations:
-            if (corpus[education] is not None) & (any(word in applicant_education for word in corpus[education])):
-                score += 1.0 / len(educations)
-        return score
 
-    @classmethod
-    def score_experience(cls, applicant_experience, experience):
-        grp = re.findall('[1-2]{1}[0-9]{3}|(?<= - )current|present|now|(?<=-)current|present|now|(?<=to)current|present|now', applicant_experience.lower(), re.IGNORECASE)
-        highest = 0
-        lowest = datetime.datetime.now().year
-        for g in grp:
-            if g == 'present' or g == 'current' or g=='now':
-                highest = datetime.datetime.now().year
-            else:
-                if int(g) < lowest:
-                    lowest = int(g)
-                if int(g) > highest:
-                    highest = int(g)
-        return float(highest-lowest)/experience
+    # Declarative steps of the pipeline
+    def steps(cls):
+        return [
+            EducationFilter,
+            ExperienceFilter,
+            SkillsFilter,
+            LanguagesFilter
+        ]
 
-# Usage
-if __name__ == '__main__':
-    RESUME_PATH = 'resume.json'
-    QUERY_PATH = 'query.json'
-    resume = JobMatcher.load_json(RESUME_PATH)
-    query = JobMatcher.load_json(QUERY_PATH)
-    scores = JobMatcher.score(resume, query)
-    print scores
+    # Returns scores weighted by user-specified weights
+    def weight(cls, scores):
+        for attribute in scores.keys():
+            if attribute in cls.weights:
+                scores[attribute] = cls.weights[attribute] * scores[attribute]
+        return scores
