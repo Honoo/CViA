@@ -11,7 +11,8 @@ query_path = sys.argv[2]
 
 for filename in os.listdir(os.path.abspath(pdf_dir)):
     resume = CVParser.parse_and_get_content(os.path.abspath(pdf_dir) + "/" +filename)
-    print JobMatcher.score(resume, JobMatcher.load_json(os.path.abspath(query_path)))
+    matcher = JobMatcher(query_path)
+    print matcher.score(resume)
 
 # Usage
 # python main.py pdfs/LinkedIn JobMatcher/query.json
