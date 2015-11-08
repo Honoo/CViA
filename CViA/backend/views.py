@@ -1,8 +1,7 @@
 import os
 import json
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-from django.shortcuts import render_to_response
-from django.shortcuts import render
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .forms import UploadFileForm
@@ -71,7 +70,7 @@ def get_job_descriptions(request):
     return HttpResponse(data, content_type='application/json')
 
 def edit_job_description(request, pk):
-    job_desc = get_object_or_404(Question, pk=pk)
+    job_desc = get_object_or_404(JobDescription, pk=pk)
     return render(request, "edit_job_description.html", {"job": job_desc})
 
 def job_list(request):
