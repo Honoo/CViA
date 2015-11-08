@@ -68,3 +68,6 @@ def get_job_descriptions(request):
     job_desc = JobDescription.objects.all()
     data = serializers.serialize("json", job_desc)
     return HttpResponse(data, content_type='application/json')
+
+def job_list(request):
+    return render_to_response("description_list.html")
