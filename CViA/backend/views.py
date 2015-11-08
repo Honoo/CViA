@@ -71,6 +71,11 @@ def get_job_descriptions(request):
     data = serializers.serialize("json", job_desc)
     return HttpResponse(data, content_type='application/json')
 
+def get_matching_cvs(request, job_desc_id):
+    job_desc = get_object_or_404(JobDescription, pk=job_desc_id)
+    data = serializers.serialize("json", job_desc.match_all())
+    return HttpResponse(data, content_type='application/json')
+
 def edit_job_description(request, pk):
     job_desc = get_object_or_404(JobDescription, pk=pk)
     if request.method == 'POST':
