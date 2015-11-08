@@ -6,10 +6,8 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from .forms import UploadFileForm
-from .forms import JobDescriptionForm
-from .models import Resume
-from .models import JobDescription
+from .forms import UploadFileForm, JobDescriptionForm
+from .models import Resume, JobDescription
 
 def index(request):
     return HttpResponse("Hello World")
@@ -42,7 +40,8 @@ def input_job_description(request):
         form = JobDescriptionForm(request.POST)
         if form.is_valid():
             handle_job_description(form)
-            return HttpResponseRedirect('../job_success')
+            messages.add_message(request, messages.SUCCESS, 'Job description successfully saved.')
+            return HttpResponseRedirect('../job_list')
     else:
         form = JobDescriptionForm()
     return render_to_response('job_description.html', {'form': form})
@@ -78,7 +77,8 @@ def edit_job_description(request, pk):
         form = JobDescriptionForm(request.POST)
         if form.is_valid():
             update_job_description(form, pk)
-            return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
+            messages.add_message(request, messages.SUCCESS, 'Job description successfully updated.')
+            return HttpResponseRedirect('../../')
     
     else :    
         form = JobDescriptionForm(initial={
@@ -111,6 +111,7 @@ def update_job_description(form, pk):
         education_weightage = data['education_weightage'],
         languages_weightage = data['languages_weightage']
         )
+
 
 def job_list(request):
     return render_to_response("description_list.html", context_instance=RequestContext(request))
