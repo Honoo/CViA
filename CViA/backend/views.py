@@ -1,9 +1,12 @@
-from django.http import HttpResponseRedirect
+import os
+import json
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 from .forms import UploadFileForm
 from .models import Resume
-import os
+from .models import JobDescription
 
 def index(request):
     return HttpResponse("Hello World")
@@ -33,14 +36,33 @@ def input_job_description(request):
     if request.method == 'POST'
         form = JobDescriptionForm(request.POST)
         if form.is_valid():
-            handle_job_description()
+            handle_job_description(form)
             return HttpResponseRedirect('../job_success')
     else:
         form = JobDescriptionForm()
     return render_to_response('job_description.html', {'form': form})
 
-def handle_job_description():
+def handle_job_description(form):
+    data = form.cleaned_data
+    job_desc = JobDescription(
+        job_title=data['job_title'], 
+        description = data['description'],
+        skills = data['skills'],
+        experience = data['experience'],
+        education = data['education'],
+        languages = data['languages'],
+        location = data['location'],
+        skills_weightage = data['skills_weightage'],
+        experience_weightage = data['experience_weightage'],
+        education_weightage = data['education_weightage'],
+        language_weightage = data['language_weightage']
+        )
+    job_desc.save()
 
 def job_success(request):
     return render_to_response("input_successful.html")
 
+def get_job_descriptions(request):
+    job_desc = JobDescription.objects.all()
+    data = serializers.serialize("json", job_desc)
+    return HttpResponse(data, content_type='application/json')
