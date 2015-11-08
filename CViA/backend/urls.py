@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^job_success/$', views.job_success, name='job_success'),
     url(r'^get_job_descriptions/$', views.get_job_descriptions, name='get_job_descriptions'),
     url(r'^job_list/$', views.job_list, name='job_list'),
+    url(r'^job_match/$', views.job_match, name='job_match'),
 ]

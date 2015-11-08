@@ -1,5 +1,7 @@
 $(document).ready( function () {
-    renderTable("#description_list"); 
+    renderTable("#description_list");
+    $('tr').on('click','input[value="Edit"]', editDesc);
+    $('tr').on('click','input[value="Match CVs"]', matchCVs);
 });
 
 function renderTable(target) {
@@ -37,3 +39,11 @@ function processData(json){
     return json;
 }
 
+function editDesc(){
+    $('#descModalTitle').text($(this).parents('tr').children('td')[0].innerText);
+    $('#descModal').modal('show');
+}
+
+function matchCVs(){
+
+}

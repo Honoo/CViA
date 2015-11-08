@@ -71,3 +71,7 @@ def get_job_descriptions(request):
 
 def job_list(request):
     return render_to_response("description_list.html")
+
+def job_match(request):
+    context = {} 
+    return render(request, 'job_matcher.html', context)
