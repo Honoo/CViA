@@ -29,3 +29,18 @@ def handle_uploaded_file(ufile):
 def upload_successful(request):
     return render_to_response("file_uploaded.html")
 
+def input_job_description(request):
+    if request.method == 'POST'
+        form = JobDescriptionForm(request.POST)
+        if form.is_valid():
+            handle_job_description()
+            return HttpResponseRedirect('../job_success')
+    else:
+        form = JobDescriptionForm()
+    return render_to_response('job_description.html', {'form': form})
+
+def handle_job_description():
+
+def job_success(request):
+    return render_to_response("input_successful.html")
+
