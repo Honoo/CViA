@@ -14,3 +14,12 @@ class JobDescription(models.Model):
 	education_weightage = models.FloatField(default=0)
 	languages_weightage = models.FloatField(default=0)
 	experience_weightage = models.FloatField(default=0)
+
+	@property
+	def weights(self):
+		return {
+			'skills': self.skills_weightage,
+			'education': self.education_weightage,
+			'language': self.languages_weightage,
+			'experience': self.experience_weightage
+		}

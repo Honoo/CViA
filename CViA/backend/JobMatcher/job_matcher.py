@@ -5,8 +5,8 @@ from filters.skills_filter import SkillsFilter
 from filters.languages_filter import LanguagesFilter
 
 class JobMatcher(object):
-    def __init__(self, query_path, weights = {}):
-        self.query = JSONDataSource.load(query_path)
+    def __init__(self, query, weights={}):
+        self.query = query
         self.weights = weights
 
     # Returns individual and total scores
