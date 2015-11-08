@@ -78,7 +78,7 @@ def edit_job_description(request, pk):
         if form.is_valid():
             update_job_description(form, pk)
             messages.add_message(request, messages.SUCCESS, 'Job description successfully updated.')
-            return HttpResponseRedirect('../job_list')
+            return HttpResponseRedirect('../../')
     
     else :    
         form = JobDescriptionForm(initial={
