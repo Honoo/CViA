@@ -19,6 +19,7 @@ class JobMatcher(object):
         scores['total'] = sum(scores.values())
         return {
             'name': resume['name'],
+            'id': resume['id'],
             'score': scores
         }
 
