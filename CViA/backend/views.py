@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from .forms import UploadFileForm, JobDescriptionForm
+from .forms import UploadFileForm, JobDescriptionForm, CVForm
 from .models import Resume, JobDescription
 
 def index(request):
@@ -99,7 +99,7 @@ def edit_job_description(request, pk):
                                     'languages': job_desc.languages,
                                     'languages_weightage': job_desc.languages_weightage
                                     })
-    return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
+    return render(request, "edit_job_description.html", {'form': form})
 
 def update_job_description(form, pk):
     data = form.cleaned_data
@@ -131,6 +131,56 @@ def get_cvs(request):
     return HttpResponse(data, content_type='application/json')
 
 def cv_list(request):
-    pass    
+    return render_to_response("cv_list.html", context_instance=RequestContext(request))
+
 def edit_cv(request):
-    pass
+    cv = get_object_or_404(Resume, pk=pk)
+    if request.method == 'POST':
+        form = CVForm(request.POST)
+        if form.is_valid():
+            update_cv(form, pk)
+            messages.add_message(request, messages.SUCCESS, 'CV successfully updated.')
+            return HttpResponseRedirect('../../')
+    
+    else :    
+        form = CVForm(initial={
+                    'name' : cv.name,
+                    'email' : cv.email,
+                    'phone' : cv.phone,
+                    'skills' : cv.skills,
+                    'experience' : cv.experience,
+                    'education' : cv.education,
+                    'awards' : cv.awards,
+                    'honors' : cv.honors,
+                    'languages' : cv.languages,
+                    'personal_references' : cv.personal_references,
+                    'interest' : cv.interest,
+                    'technology' : cv.technology,
+                    'certification' : cv.certification,
+                    'projects' : cv.projects,
+                    'summary' : cv.summary,
+                    'objective' : cv.objective 
+                    })
+    
+    return render(request, "edit_cv.html", {'form': form})
+
+def update_cv(form, pk):
+    data = form.cleaned_data
+    cv = Resume.objects.filter(pk=pk).update(
+            name = data['name'],
+            email = data['email'],
+            phone = data['phone'],
+            skills = data['skills'],
+            experience = data['experience'],
+            education = data['education'],
+            awards = data['awards'],
+            honors = data['honors'],
+            languages = data['languages'],
+            personal_references = data['personal_references'],
+            interest = data['interest'],
+            technology = data['technology'],
+            certification = data['certification'],
+            projects = data['projects'],
+            summary = data['summary'],
+            objective = data['objective'],
+        )
