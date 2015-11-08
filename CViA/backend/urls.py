@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^job_match/$', views.job_match, name='job_match'),
     url(r'^job_list/(?P<pk>[0-9]+)/edit/$', views.edit_job_description, name='edit_job_description'),
     url(r'^get_cvs/$', views.get_cvs, name='get_cvs'),
+    url(r'^cv_list/$', views.cv_list, name='cv_list'),
+    url(r'^cv_list/(?P<pk>[0-9]+)/edit/$', views.edit_cv, name='edit_cv'),
 ]

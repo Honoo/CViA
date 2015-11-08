@@ -123,3 +123,8 @@ def get_cvs(request):
     cvs = Resume.objects.all()
     data = serializers.serialize("json", cvs)
     return HttpResponse(data, content_type='application/json')
+
+def cv_list(request):
+    pass    
+def edit_cv(request):
+    pass
