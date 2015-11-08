@@ -72,7 +72,22 @@ def get_job_descriptions(request):
 
 def edit_job_description(request, pk):
     job_desc = get_object_or_404(Question, pk=pk)
-    return render(request, "edit_job_description.html", {"job": job_desc})
+    if request.method == 'POST':
+    else :    
+        form = JobDescriptionForm(initial={
+                                    'job_title': job_desc['job_title'],
+                                    'description' : job_desc['description'],
+                                    'location' : job_desc['location'],
+                                    'skills' : job_desc['skills'],
+                                    'skills_weightage' : job_desc['skills_weightage'],
+                                    'experience' : job_desc['experience'],
+                                    'experience_weightage' : job_desc['experience_weightage'],
+                                    'education' : job_desc['education'],
+                                    'education_weightage': job_desc['education_weightage'],
+                                    'languages': job_desc['languages'],
+                                    'languages_weightage': job_desc['languages_weightage']
+                                    })
+    return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
 
 def job_list(request):
     return render_to_response("description_list.html")
