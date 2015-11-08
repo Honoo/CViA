@@ -1,8 +1,9 @@
 import os
 import json
+from django.template import RequestContext
+from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-from django.shortcuts import render_to_response
-from django.shortcuts import render
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .forms import UploadFileForm
@@ -19,7 +20,8 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('../upload_successful')
+            messages.add_message(request, messages.SUCCESS, 'CV successfully uploaded.')
+            return HttpResponseRedirect('../job_list')
     else:
         form = UploadFileForm()
     return render_to_response('upload_cv.html', {'form': form})
@@ -80,17 +82,17 @@ def edit_job_description(request, pk):
     
     else :    
         form = JobDescriptionForm(initial={
-                                    'job_title': job_desc['job_title'],
-                                    'description' : job_desc['description'],
-                                    'location' : job_desc['location'],
-                                    'skills' : job_desc['skills'],
-                                    'skills_weightage' : job_desc['skills_weightage'],
-                                    'experience' : job_desc['experience'],
-                                    'experience_weightage' : job_desc['experience_weightage'],
-                                    'education' : job_desc['education'],
-                                    'education_weightage': job_desc['education_weightage'],
-                                    'languages': job_desc['languages'],
-                                    'languages_weightage': job_desc['languages_weightage']
+                                    'job_title': job_desc.job_title,
+                                    'description' : job_desc.description,
+                                    'location' : job_desc.location,
+                                    'skills' : job_desc.skills,
+                                    'skills_weightage' : job_desc.skills_weightage,
+                                    'experience' : job_desc.experience,
+                                    'experience_weightage' : job_desc.experience_weightage,
+                                    'education' : job_desc.education,
+                                    'education_weightage': job_desc.education_weightage,
+                                    'languages': job_desc.languages,
+                                    'languages_weightage': job_desc.languages_weightage
                                     })
     return render(request, "edit_job_description.html", {'job': job_desc, 'form': form})
 
@@ -111,7 +113,7 @@ def update_job_description(form, pk):
         )
 
 def job_list(request):
-    return render_to_response("description_list.html")
+    return render_to_response("description_list.html", context_instance=RequestContext(request))
 
 def job_match(request):
     context = {} 
