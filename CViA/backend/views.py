@@ -133,7 +133,7 @@ def get_cvs(request):
 def cv_list(request):
     return render_to_response("cv_list.html", context_instance=RequestContext(request))
 
-def edit_cv(request):
+def edit_cv(request, pk):
     cv = get_object_or_404(Resume, pk=pk)
     if request.method == 'POST':
         form = CVForm(request.POST)
@@ -154,7 +154,7 @@ def edit_cv(request):
                     'honors' : cv.honors,
                     'languages' : cv.languages,
                     'personal_references' : cv.personal_references,
-                    'interest' : cv.interest,
+                    'interests' : cv.interests,
                     'technology' : cv.technology,
                     'certification' : cv.certification,
                     'projects' : cv.projects,
@@ -177,7 +177,7 @@ def update_cv(form, pk):
             honors = data['honors'],
             languages = data['languages'],
             personal_references = data['personal_references'],
-            interest = data['interest'],
+            interests = data['interests'],
             technology = data['technology'],
             certification = data['certification'],
             projects = data['projects'],
