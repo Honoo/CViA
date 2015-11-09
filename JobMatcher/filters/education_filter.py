@@ -3,6 +3,8 @@ from filter import Filter
 class EducationFilter(Filter):
     @classmethod
     def run(cls, resume_attribute, query_attribute):
+        if isinstance(query_attribute, basestring):
+            query_attribute = [x.strip() for x in query_attribute.split(',')]
         query_attribute = map(lambda e: e.lower(), query_attribute)
 
         corpus = {
@@ -12,6 +14,8 @@ class EducationFilter(Filter):
         }
         score = 0
         for education in query_attribute:
-            if (corpus[education] is not None) & (any(word in resume_attribute for word in corpus[education])):
+            if education not in corpus:
+                continue
+            if (any(word in resume_attribute for word in corpus[education])):
                 score += 1.0 / len(query_attribute)
         return score

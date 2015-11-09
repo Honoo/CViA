@@ -1,8 +1,6 @@
 {
-  "skills" : ["Android", "css", "python"],
   "experience": 2,
-  "education": ["bachelors", "masters"],
-  "location": "Singapore",
-  "languages": ["hindi"],
-  "certification": ["ITIL"]
+  "education": "bachelors, masters",
+  "languages": ["Hindi", "English"],
+  "skills": ["ruby", "python"]
 }
