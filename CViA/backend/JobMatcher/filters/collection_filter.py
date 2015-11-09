@@ -3,6 +3,9 @@ from filter import Filter
 class CollectionFilter(Filter):
     @classmethod
     def run(cls, resume_attribute, query_attribute):
+        if isinstance(query_attribute, basestring):
+            query_attribute = [x.strip() for x in query_attribute.split(',')]
+
         if not resume_attribute:
             return 0
 

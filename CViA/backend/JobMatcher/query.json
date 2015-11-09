@@ -1,7 +1,6 @@
 {
-  "skills" : ["html", "css", "python"],
   "experience": 2,
-  "education": ["bachelors", "masters"],
-  "location": "Singapore",
-  "languages": ["English"]
+  "education": "bachelors, masters",
+  "languages": ["Hindi", "English"],
+  "skills": ["ruby", "python"]
 }
