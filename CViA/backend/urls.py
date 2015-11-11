@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^get_cvs/$', views.get_cvs, name='get_cvs'),
     url(r'^cv_list/$', views.cv_list, name='cv_list'),
     url(r'^cv_list/(?P<pk>[0-9]+)/edit/$', views.edit_cv, name='edit_cv'),
-    url(r'^delete_cv/$', views.delete_cv, name='delete_cv'),
-    url(r'^delete_job/$', views.delete_job, name='delete_job'),
+    url(r'^delete_cv/(?P<pk>[0-9]+)/$', views.delete_cv, name='delete_cv'),
+    url(r'^delete_job/(?P<pk>[0-9]+)/$', views.delete_job, name='delete_job'),
 ]

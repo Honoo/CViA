@@ -1,7 +1,5 @@
 $(document).ready( function () {
     renderTable("#description_list");
-    $('tr').on('click','input[value="Edit"]', editDesc);
-    $('tr').on('click','input[value="Match CVs"]', matchCVs);
 });
 
 function renderTable(target) {
@@ -24,7 +22,8 @@ function renderTable(target) {
             {'data': 'fields.languages', 'title': 'Languages'},
             {'data': 'fields.weights_string', 'title': 'Weightage'},
             {'data': 'fields.edit', 'title': 'Edit'},
-            {'data': 'fields.match_cv', 'title': 'Match CVs'}
+            {'data': 'fields.match_cv', 'title': 'Match CVs'},
+            {'data': 'fields.delete_job', 'title': 'Delete'}
         ]
     });
 }
@@ -35,6 +34,7 @@ function processData(json){
         json[i].DT_RowId = json[i].pk;
         json[i].fields.edit = '<a href="'+json[i].pk+'/edit"><input type="button" value="Edit"></a>';
         json[i].fields.match_cv = '<a href="../job_match/'+json[i].pk+'"><input type="button" value="Match CVs"></a>';
+        json[i].fields.delete_job = '<a href="../delete_job/'+json[i].pk+'"><input type = "button" value="Delete"></a>';
         json[i].fields.weights_string = 
             json[i].fields.skills_weightage + ":" + 
             json[i].fields.experience_weightage + ":" + 
@@ -42,13 +42,4 @@ function processData(json){
             json[i].fields.languages_weightage;
     }
     return json;
-}
-
-function editDesc(){
-    $('#descModalTitle').text($(this).parents('tr').children('td')[0].innerText);
-    $('#descModal').modal('show');
-}
-
-function matchCVs(){
-
 }

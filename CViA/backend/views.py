@@ -1,5 +1,7 @@
 import os
 import json
+import logging
+import traceback
 from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
@@ -8,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .forms import UploadFileForm, JobDescriptionForm, CVForm
 from .models import Resume, JobDescription
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return HttpResponse("Hello World")
@@ -185,10 +189,10 @@ def update_cv(form, pk):
         )
 
 @csrf_exempt
-def delete_cv(request):
+def delete_cv(request, pk):
     resp=[]
     try:
-        cv = Resume.objects.get(pk=request.POST['pk'])
+        cv = Resume.objects.get(pk=pk)
         cv.delete()
     except Exception:
         logger.info(traceback.format_exc())
@@ -198,10 +202,10 @@ def delete_cv(request):
     return HttpResponse(json.dumps(resp), content_type='application/json')
 
 @csrf_exempt
-def delete_job(request):
+def delete_job(request, pk):
     resp=[]
     try:
-        job_desc = JobDescription.objects.get(pk=request.POST['pk'])
+        job_desc = JobDescription.objects.get(pk=pk)
         job_desc.delete()
     except Exception:
         logger.info(traceback.format_exc())

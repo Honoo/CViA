@@ -1,6 +1,5 @@
 $(document).ready( function () {
     renderTable("#cv_list");
-    $('tr').on('click','input[value="Edit"]', editDesc);
 });
 
 function renderTable(target) {
@@ -18,7 +17,8 @@ function renderTable(target) {
             {'data': 'fields.experience', 'title': 'Experience'},
             {'data': 'fields.education', 'title': 'Education'},
             {'data': 'fields.languages', 'title': 'Languages'},
-            {'data': 'fields.edit', 'title': 'Edit'}
+            {'data': 'fields.edit', 'title': 'Edit'},
+            {'data': 'fields.delete_cv', 'title': 'Delete'}
         ]
     });
 }
@@ -28,11 +28,7 @@ function processData(json){
     for(var i=0; i < len; i++){ 
         json[i].DT_RowId = json[i].pk;
         json[i].fields.edit = '<a href="'+json[i].pk+'/edit"><input type="button" value="Edit"></a>';
+        json[i].fields.delete_cv = '<a href="../delete_cv/'+json[i].pk+'"><input type = "button" value="Delete"></a>';
     }
     return json;
-}
-
-function editDesc(){
-    $('#descModalTitle').text($(this).parents('tr').children('td')[0].innerText);
-    $('#descModal').modal('show');
 }
