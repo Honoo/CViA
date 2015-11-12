@@ -20,7 +20,7 @@ function renderTable(target, job_id) {
         'deferRender': true,
         'columns': [
             {'data': 'score.total', 'title': 'Total Score'},
-            {'data': 'resume.name', 'title': 'Name'},
+            {'data': 'name', 'title': 'Name'},
             {'data': 'resume.education', 'title': 'Education'},
             {'data': 'resume.skills', 'title': 'Skills'},
             {'data': 'resume.experience', 'title': 'Experience'},
@@ -32,8 +32,9 @@ function renderTable(target, job_id) {
 
 function processData(json){
     var len = json.length;
-    for(var i=0; i < len; i++){    
+    for(var i=0; i < len; i++){
         json[i].DT_RowId = json[i].pk;
+        json[i].name = '<a href="../../cv_list/'+json[i].resume.id+'/edit">' + json[i].resume.name + '</a>';
     }
     return json;
 }
