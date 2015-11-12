@@ -77,7 +77,14 @@ def get_job_descriptions(request):
 
 def get_matching_cvs(request, pk):
     job_desc = get_object_or_404(JobDescription, pk=pk)
-    data = serializers.serialize("json", job_desc.match_all())
+    results = job_desc.match_all()
+    data = []
+    for entry in results:
+        item = {'score': entry['score']}
+        entry['resume'].pop('_state', None)
+        item['resume'] = entry['resume']
+        data.append(item)
+    data = json.dumps(data)
     return HttpResponse(data, content_type='application/json')
 
 def edit_job_description(request, pk):

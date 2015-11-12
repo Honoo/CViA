@@ -11,7 +11,7 @@ $(document).ready( function () {
 });
 
 function renderTable(target, job_id) {
-    $(target).DataTable({
+    var table = $(target).DataTable({
         'ajax': { 
             'url': '../../get_matching_cvs/'+job_id+'/',
             'dataSrc': processData,
@@ -19,14 +19,15 @@ function renderTable(target, job_id) {
         },
         'deferRender': true,
         'columns': [
-            {'data': 'fields.score.total', 'title': 'Total Score'},
-            {'data': 'fields.resume.name', 'title': 'Name'},
-            {'data': 'fields.resume.education', 'title': 'Education'},
-            {'data': 'fields.resume.skills', 'title': 'Skills'},
-            {'data': 'fields.resume.experience', 'title': 'Experience'},
-            {'data': 'fields.resume.languages', 'title': 'Languages'},
+            {'data': 'score.total', 'title': 'Total Score'},
+            {'data': 'resume.name', 'title': 'Name'},
+            {'data': 'resume.education', 'title': 'Education'},
+            {'data': 'resume.skills', 'title': 'Skills'},
+            {'data': 'resume.experience', 'title': 'Experience'},
+            {'data': 'resume.languages', 'title': 'Languages'},
         ]
     });
+    table.order([0, 'desc']);
 }
 
 function processData(json){
